@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "build:apk": "eas build -p android --profile preview",
     "build:aab": "eas build -p android --profile production",
-    "build:ios": "eas build -p ios --profile production"
+    "build:ios": "eas build -p ios --profile production",
+    "build:ios-sim": "eas build -p ios --profile ios-simulator"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.6.1",

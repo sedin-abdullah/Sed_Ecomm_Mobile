@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#030712"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.sedecomm.app",
@@ -39,8 +41,9 @@
     "extra": {
       "apiUrl": "https://sed-ecomm-server.onrender.com/api/v1",
       "eas": {
-        "projectId": "REPLACE_WITH_YOUR_EAS_PROJECT_ID"
+        "projectId": "eeb92883-162c-4b5a-8fbc-96345aa2c63d"
       }
-    }
+    },
+    "owner": "abdullah_1010"
   }
 }
