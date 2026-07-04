@@ -22,6 +22,7 @@ import { useProductI18n } from '@/i18n/productI18n';
 import { formatPrice } from '@/utils/format';
 import { colors } from '@/constants/theme';
 import type { RootStackParamList } from '@/navigation/types';
+import type { CartItem } from '@/types';
 
 function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
@@ -57,7 +58,7 @@ export function CartScreen() {
     );
   }
 
-  const items = cart?.items.filter((i) => !i.savedForLater) ?? [];
+  const items = cart?.items.filter((i: CartItem) => !i.savedForLater) ?? [];
 
   if (!cart || items.length === 0) {
     return (

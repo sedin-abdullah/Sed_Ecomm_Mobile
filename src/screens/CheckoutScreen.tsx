@@ -38,7 +38,7 @@ export function CheckoutScreen() {
     });
   }
 
-  const addressId = selected ?? addresses?.find((a) => a.isDefault)?.id ?? addresses?.[0]?.id;
+  const addressId = selected ?? addresses?.find((a: Address) => a.isDefault)?.id ?? addresses?.[0]?.id;
 
   return (
     <GradientBackground>
@@ -54,7 +54,7 @@ export function CheckoutScreen() {
         {isLoading ? (
           <ActivityIndicator color={colors.brand} />
         ) : (
-          addresses?.map((a) => (
+          addresses?.map((a: Address) => (
             <Pressable
               key={a.id}
               onPress={() => setSelected(a.id)}

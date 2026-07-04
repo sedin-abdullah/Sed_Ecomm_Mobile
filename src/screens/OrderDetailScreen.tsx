@@ -10,6 +10,7 @@ import { useProductI18n } from '@/i18n/productI18n';
 import { formatPrice } from '@/utils/format';
 import { colors } from '@/constants/theme';
 import type { RootStackParamList } from '@/navigation/types';
+import type { OrderItem } from '@/types';
 
 export function OrderDetailScreen() {
   const insets = useSafeAreaInsets();
@@ -43,7 +44,7 @@ export function OrderDetailScreen() {
         {/* Status timeline */}
         <View className="rounded-3xl border border-white/10 bg-white/[0.06] p-4">
           <Text className="mb-3 font-semibold text-foreground">Tracking</Text>
-          {(tracking ?? []).map((ev, i) => (
+          {(tracking ?? []).map((ev: { status: string; label: string; timestamp: string }, i: number) => (
             <View key={i} className="flex-row items-start gap-3 pb-3">
               <View className="mt-1 h-3 w-3 rounded-full bg-brand-500" />
               <View className="flex-1">
@@ -57,7 +58,7 @@ export function OrderDetailScreen() {
         {/* Items */}
         <View className="rounded-3xl border border-white/10 bg-white/[0.06] p-4">
           <Text className="mb-3 font-semibold text-foreground">Items</Text>
-          {order.items.map((item) => (
+          {order.items.map((item: OrderItem) => (
             <View key={item.id} className="flex-row items-center gap-3 py-2">
               <ProductImage uri={item.image} className="h-12 w-12 rounded-xl" style={{ width: 48, height: 48, borderRadius: 12 }} />
               <View className="flex-1">

@@ -18,6 +18,7 @@ import { getApiErrorMessage } from '@/services/api';
 import { formatPrice } from '@/utils/format';
 import { colors } from '@/constants/theme';
 import type { RootStackParamList } from '@/navigation/types';
+import type { ProductImage as ProductImageType } from '@/types';
 
 const { width } = Dimensions.get('window');
 
@@ -93,7 +94,7 @@ export function ProductDetailScreen() {
         />
         {product.images.length > 1 && (
           <View className="mt-3 flex-row justify-center gap-1.5">
-            {product.images.map((img, i) => (
+            {product.images.map((img: ProductImageType, i: number) => (
               <View key={img.id} className={`h-1.5 rounded-full ${i === activeImg ? 'w-5 bg-brand-500' : 'w-1.5 bg-white/25'}`} />
             ))}
           </View>
@@ -123,7 +124,7 @@ export function ProductDetailScreen() {
             <View className="mt-5">
               <Text className="mb-2 font-semibold text-foreground">Size</Text>
               <View className="flex-row flex-wrap gap-2">
-                {product.variants.sizes.map((s) => (
+                {product.variants.sizes.map((s: string) => (
                   <Pressable
                     key={s}
                     onPress={() => setSize((cur) => (cur === s ? undefined : s))}
@@ -141,7 +142,7 @@ export function ProductDetailScreen() {
             <View className="mt-4">
               <Text className="mb-2 font-semibold text-foreground">Color</Text>
               <View className="flex-row flex-wrap gap-2">
-                {product.variants.colors.map((c) => (
+                {product.variants.colors.map((c: string) => (
                   <Pressable
                     key={c}
                     onPress={() => setColor((cur) => (cur === c ? undefined : c))}

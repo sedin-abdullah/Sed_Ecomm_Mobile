@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-// NativeWind v2 — Tailwind classes for React Native. Palette mirrors the web
+// NativeWind v4 — Tailwind classes for React Native. Palette mirrors the web
 // app's premium dark "Apple × Linear" theme (indigo/purple/cyan on near-black).
 module.exports = {
   content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('nativewind/preset')],
   theme: {
     extend: {
       colors: {
