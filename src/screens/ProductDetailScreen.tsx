@@ -13,6 +13,7 @@ import { useProduct, useRelatedProducts } from '@/hooks/useProducts';
 import { useAddToCart } from '@/hooks/useCart';
 import { useAddToWishlist } from '@/hooks/useWishlist';
 import { useAuthStore } from '@/store/authStore';
+import { useUiStore } from '@/store/uiStore';
 import { useProductI18n } from '@/i18n/productI18n';
 import { getApiErrorMessage } from '@/services/api';
 import { formatPrice } from '@/utils/format';
@@ -29,6 +30,7 @@ export function ProductDetailScreen() {
   const { params } = useRoute<RouteProp<RootStackParamList, 'ProductDetail'>>();
   const pi = useProductI18n();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const cartCount = useUiStore((s) => s.cartCount);
   const { data: product, isLoading } = useProduct(params.slug);
   const related = useRelatedProducts(product?.id);
   const addToCart = useAddToCart();
@@ -64,19 +66,32 @@ export function ProductDetailScreen() {
         <Pressable onPress={() => nav.goBack()} className="rounded-full border border-white/10 bg-white/[0.06] p-2">
           <Ionicons name="chevron-back" size={20} color="#fff" />
         </Pressable>
-        <Pressable
-          onPress={() =>
-            requireAuth(() =>
-              addToWishlist.mutate(product.id, {
-                onSuccess: ({ alreadyExists }) =>
-                  Alert.alert(alreadyExists ? 'Already in wishlist' : 'Added to wishlist ❤️'),
-              }),
-            )
-          }
-          className="rounded-full border border-white/10 bg-white/[0.06] p-2"
-        >
-          <Ionicons name="heart-outline" size={20} color="#fff" />
-        </Pressable>
+        <View className="flex-row items-center gap-2">
+          <Pressable
+            onPress={() =>
+              requireAuth(() =>
+                addToWishlist.mutate(product.id, {
+                  onSuccess: ({ alreadyExists }) =>
+                    Alert.alert(alreadyExists ? 'Already in wishlist' : 'Added to wishlist ❤️'),
+                }),
+              )
+            }
+            className="rounded-full border border-white/10 bg-white/[0.06] p-2"
+          >
+            <Ionicons name="heart-outline" size={20} color="#fff" />
+          </Pressable>
+          <Pressable
+            onPress={() => nav.navigate('MainTabs', { screen: 'Cart' } as never)}
+            className="rounded-full border border-white/10 bg-white/[0.06] p-2"
+          >
+            <Ionicons name="bag-outline" size={20} color="#fff" />
+            {cartCount > 0 && (
+              <View className="absolute -right-1 -top-1 h-5 w-5 items-center justify-center rounded-full bg-brand-500">
+                <Text className="text-[10px] font-bold text-white">{cartCount}</Text>
+              </View>
+            )}
+          </Pressable>
+        </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
