@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { GradientBackground } from '@/components/GradientBackground';
+import { useThemeColors } from '@/hooks/useThemeColors';
 import { GlassCard } from '@/components/GlassCard';
 import { ProductImage } from '@/components/ProductImage';
 import { TextField } from '@/components/TextField';
@@ -30,6 +31,7 @@ const categoryIdOf = (p: Product) => (typeof p.category === 'string' ? p.categor
 
 export function AdminProductsScreen() {
   const insets = useSafeAreaInsets();
+  const tc = useThemeColors();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { data: products, isLoading } = useAdminProducts();
   const { data: categories } = useCategories();
@@ -97,8 +99,8 @@ export function AdminProductsScreen() {
     <GradientBackground>
       <View style={{ paddingTop: insets.top + 8 }} className="flex-1">
         <View className="flex-row items-center gap-2 px-4 pb-2">
-          <Pressable onPress={() => nav.goBack()} className="h-10 w-10 items-center justify-center rounded-full bg-white/[0.06]">
-            <Ionicons name="chevron-back" size={22} color={colors.foreground} />
+          <Pressable onPress={() => nav.goBack()} className="h-10 w-10 items-center justify-center rounded-full bg-glass/[0.06]">
+            <Ionicons name="chevron-back" size={22} color={tc.foreground} />
           </Pressable>
           <Text className="flex-1 text-2xl font-bold text-foreground">Products</Text>
           <Pressable onPress={openCreate} className="rounded-full bg-brand-500 px-4 py-2">
@@ -131,7 +133,7 @@ export function AdminProductsScreen() {
 
       <Modal visible={open} animationType="slide" transparent onRequestClose={() => setOpen(false)}>
         <View className="flex-1 justify-end bg-black/60">
-          <View className="max-h-[88%] rounded-t-3xl border border-white/10 bg-surface-2 p-4" style={{ paddingBottom: insets.bottom + 16 }}>
+          <View className="max-h-[88%] rounded-t-3xl border border-glass-border/10 bg-surface-2 p-4" style={{ paddingBottom: insets.bottom + 16 }}>
             <View className="mb-3 flex-row items-center justify-between">
               <Text className="text-lg font-bold text-foreground">{editing ? 'Edit product' : 'Add product'}</Text>
               <Pressable onPress={() => setOpen(false)}><Ionicons name="close" size={24} color={colors.muted} /></Pressable>
@@ -151,7 +153,7 @@ export function AdminProductsScreen() {
                     const active = f.category === c.id;
                     return (
                       <Pressable key={c.id} onPress={() => setF({ ...f, category: c.id })}
-                        className={`rounded-full border px-3 py-1.5 ${active ? 'border-brand-500 bg-brand-500/20' : 'border-white/10'}`}>
+                        className={`rounded-full border px-3 py-1.5 ${active ? 'border-brand-500 bg-brand-500/20' : 'border-glass-border/10'}`}>
                         <Text className={active ? 'text-brand-400' : 'text-secondary'}>{c.name}</Text>
                       </Pressable>
                     );
@@ -164,7 +166,7 @@ export function AdminProductsScreen() {
                     const active = flags[fl.key];
                     return (
                       <Pressable key={fl.key} onPress={() => setFlags({ ...flags, [fl.key]: !active })}
-                        className={`rounded-full border px-3 py-1.5 ${active ? 'border-brand-500 bg-brand-500/20' : 'border-white/10'}`}>
+                        className={`rounded-full border px-3 py-1.5 ${active ? 'border-brand-500 bg-brand-500/20' : 'border-glass-border/10'}`}>
                         <Text className={active ? 'text-brand-400' : 'text-secondary'}>{fl.label}</Text>
                       </Pressable>
                     );

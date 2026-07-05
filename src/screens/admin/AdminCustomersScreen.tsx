@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { GradientBackground } from '@/components/GradientBackground';
+import { useThemeColors } from '@/hooks/useThemeColors';
 import { GlassCard } from '@/components/GlassCard';
 import { useAdminCustomers } from '@/hooks/useAdmin';
 import { colors } from '@/constants/theme';
@@ -12,6 +13,7 @@ import type { RootStackParamList } from '@/navigation/types';
 
 export function AdminCustomersScreen() {
   const insets = useSafeAreaInsets();
+  const tc = useThemeColors();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { data: customers, isLoading } = useAdminCustomers();
 
@@ -19,8 +21,8 @@ export function AdminCustomersScreen() {
     <GradientBackground>
       <View style={{ paddingTop: insets.top + 8 }} className="flex-1">
         <View className="flex-row items-center gap-2 px-4 pb-2">
-          <Pressable onPress={() => nav.goBack()} className="h-10 w-10 items-center justify-center rounded-full bg-white/[0.06]">
-            <Ionicons name="chevron-back" size={22} color={colors.foreground} />
+          <Pressable onPress={() => nav.goBack()} className="h-10 w-10 items-center justify-center rounded-full bg-glass/[0.06]">
+            <Ionicons name="chevron-back" size={22} color={tc.foreground} />
           </Pressable>
           <Text className="text-2xl font-bold text-foreground">Customers</Text>
         </View>

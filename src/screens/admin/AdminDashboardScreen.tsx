@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { GradientBackground } from '@/components/GradientBackground';
+import { useThemeColors } from '@/hooks/useThemeColors';
 import { GlassCard } from '@/components/GlassCard';
 import { ProductImage } from '@/components/ProductImage';
 import { useDashboardSummary, useBestSellers } from '@/hooks/useAdmin';
@@ -30,6 +31,7 @@ const LINKS: { label: string; icon: keyof typeof Ionicons.glyphMap; route: keyof
 
 export function AdminDashboardScreen() {
   const insets = useSafeAreaInsets();
+  const tc = useThemeColors();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { data: s, isLoading } = useDashboardSummary();
   const { data: best } = useBestSellers();
@@ -38,8 +40,8 @@ export function AdminDashboardScreen() {
     <GradientBackground>
       <ScrollView style={{ paddingTop: insets.top + 8 }} contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
         <View className="mb-4 flex-row items-center gap-2">
-          <Pressable onPress={() => nav.goBack()} className="h-10 w-10 items-center justify-center rounded-full bg-white/[0.06]">
-            <Ionicons name="chevron-back" size={22} color={colors.foreground} />
+          <Pressable onPress={() => nav.goBack()} className="h-10 w-10 items-center justify-center rounded-full bg-glass/[0.06]">
+            <Ionicons name="chevron-back" size={22} color={tc.foreground} />
           </Pressable>
           <Text className="text-2xl font-bold text-foreground">Admin Dashboard</Text>
         </View>
@@ -65,7 +67,7 @@ export function AdminDashboardScreen() {
                 <Pressable
                   key={l.route}
                   onPress={() => nav.navigate(l.route as never)}
-                  className="flex-1 flex-row items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] p-4"
+                  className="flex-1 flex-row items-center gap-2 rounded-2xl border border-glass-border/10 bg-glass/[0.06] p-4"
                   style={{ minWidth: '46%' }}
                 >
                   <Ionicons name={l.icon} size={20} color={colors.brand} />
@@ -79,7 +81,7 @@ export function AdminDashboardScreen() {
                 <Text className="mb-2 mt-6 font-semibold text-foreground">Best Sellers</Text>
                 <GlassCard className="p-2">
                   {best.map(({ product, unitsSold }: BestSeller) => (
-                    <View key={product.id} className="flex-row items-center gap-3 border-b border-white/5 p-2">
+                    <View key={product.id} className="flex-row items-center gap-3 border-b border-glass-border/5 p-2">
                       <ProductImage uri={product.images?.[0]?.url} style={{ width: 40, height: 40, borderRadius: 8 }} />
                       <Text className="flex-1 text-sm text-foreground" numberOfLines={1}>{product.name}</Text>
                       <Text className="text-xs text-muted-foreground">{unitsSold} sold</Text>
