@@ -46,6 +46,9 @@ export function ProfileScreen() {
           <Item icon="bag-outline" label={t('nav.orders')} onPress={() => nav.navigate('Orders' as never)} />
           <Item icon="heart-outline" label={t('nav.wishlist')} onPress={() => nav.navigate('MainTabs', { screen: 'Wishlist' } as never)} />
           <Item icon="bag-handle-outline" label={t('nav.cart')} onPress={() => nav.navigate('MainTabs', { screen: 'Cart' } as never)} />
+          {user?.role === 'admin' && (
+            <Item icon="shield-checkmark-outline" label="Admin Dashboard" onPress={() => nav.navigate('AdminDashboard')} />
+          )}
         </View>
 
         {/* Language switcher */}
